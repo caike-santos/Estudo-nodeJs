@@ -4,9 +4,9 @@ import FamiliaController from '../src/app/controllers/FamiliaController.js'
 const router = Router()
 
 router.get("/familia", FamiliaController.index);
-router.post("/cadastra", FamiliaController.criar);
-router.get("/buscaId/:id", FamiliaController.ler);
-router.put("/buscaId/:id", FamiliaController.atualizar);
-router.delete("/buscaId/:id", FamiliaController.deletar);
+router.post("/familia", FamiliaController.criar);
+router.get("/familiaId/:id", FamiliaController.ler);
+router.patch("/familiaId/:id", FamiliaController.atualizar);
+router.delete("/familiaId/:id", FamiliaController.deletar);
 
 export default router
