@@ -1,0 +1,22 @@
+{
+    "name": "ex-2",
+    "version": "1.0.0",
+    "description": "",
+    "main": "src/server.js",
+    "type": "module",
+    "scripts": {
+        "dev": "nodemon src/server.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^5.2.1",
+        "mysql2": "^3.24.4",
+        "node": "^26.9.0"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.14"
+    }
+}

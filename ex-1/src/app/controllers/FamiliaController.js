@@ -1,4 +1,3 @@
-import conexao from '../database/conexao.js';
 import FamiliaRepository from "../repositors/FamiliaRepository.js"
 
 class FamiliaController {

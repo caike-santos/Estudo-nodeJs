@@ -8,7 +8,7 @@ const conexao = mysql.createConnection({
     database: 'dbFamilia'
 })
 
-export const consulta = (sql, parametros, msgErro) => {
+export const consulta = (sql, parametros = [], msgErro) => {
     return new Promise((resolve, reject) => {
       conexao.query(sql, parametros, (erro, resultado) => {
         if (erro) {
