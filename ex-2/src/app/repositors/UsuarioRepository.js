@@ -12,7 +12,7 @@ class UsuarioRepository{
 
     findAll(){
         const sql = "SELECT * FROM usuarios"
-        return consulta(sql, "Falha ao buscar usuarios")
+        return consulta(sql, [], "Falha ao buscar usuarios")
     }
 
     update(data, id){
@@ -23,6 +23,26 @@ class UsuarioRepository{
     delete(id){
         const sql = "DELETE FROM usuarios WHERE id=?"
         return consulta(sql, id, `Falha em deletar o usuario com id ${id}`)
+    }
+
+    async findAllPaginated(page = 1, limit = 10){
+        const offset = (page - 1) * limit
+
+        const sqlData = "SELECT * FROM usuario LIMIT ? OFFSET ?"
+        const sqlCount = "SELECT COUNT(*) AS total FROM usuarios"
+
+        const data = await consulta(sqlData, [limit, offset], "Falha ao buscar usuários paginados")
+        const countResult = await consulta(sqlCount, [], "Falha ao contar total de usuários") 
+
+        const total = countResult[0].total
+
+        return {
+        data,
+        total,
+        page: Number(page),
+        limit: Number(limit),
+        totalPages: Math.ceil(total / limit)
+    };
     }
 }
 

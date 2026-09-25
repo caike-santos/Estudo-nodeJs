@@ -1,10 +1,15 @@
-import express from "express"
-import router from "./routers.js"
+import express from "express";
+import router from "./routers.js";
+import { validarConteudo, verificarAccepts } from "./app/middlewares/httpValidation.js";
 
-const app = express()
+const app = express();
 
-app.use(express.json())
+app.use(express.json());
 
-app.use(router)
+app.use(validarConteudo);
 
-export default app
+app.use(verificarAccepts);
+
+app.use(router);
+
+export default app;
