@@ -28,7 +28,7 @@ class UsuarioRepository{
     async findAllPaginated(page = 1, limit = 10){
         const offset = (page - 1) * limit
 
-        const sqlData = "SELECT * FROM usuario LIMIT ? OFFSET ?"
+        const sqlData = "SELECT * FROM usuarios LIMIT ? OFFSET ?"
         const sqlCount = "SELECT COUNT(*) AS total FROM usuarios"
 
         const data = await consulta(sqlData, [limit, offset], "Falha ao buscar usuários paginados")

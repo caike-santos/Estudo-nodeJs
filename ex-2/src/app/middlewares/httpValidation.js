@@ -2,8 +2,8 @@ export function validarConteudo(req, res, next){
     if(["POST", "PUT", "PATCH"].includes(req.method)){
         const contentType = req.headers['content-type'];
 
-        if(!contentType || !contentType.includes('aplication/json')){
-            res.status(415).json({
+        if(!contentType || !contentType.includes('application/json')){
+            return res.status(415).json({
                 type: "https://httpstatuses.com/415",
                 title: "Unsupported Media Type",
                 status: 415,
@@ -18,7 +18,7 @@ export function verificarAccepts(req, res, next){
     const accepts = req.accepts('json');
 
     if(!accepts){
-        res.status(406).json({
+        return res.status(406).json({
             type: "https://httpstatuses.com/406",
             title: "Not Acceptable",
             status: 406,
