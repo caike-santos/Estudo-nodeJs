@@ -50,3 +50,5 @@ class RoupaRepository {
     return consulta(sql, id, `Falha em deletar roupa de id ${id}`)
   }
 }
+
+export default new RoupaRepository()

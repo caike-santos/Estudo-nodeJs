@@ -63,3 +63,35 @@ export function gerarLinksPaginacao(baseUrl, page, limit, totalPages){
 
     return links
 }
+
+export function gerarLinksRoupa(roupa, baseUrl = "/roupas") {
+  return {
+    ...roupa,
+    _links: [
+      {
+        rel: "self",
+        href: `${baseUrl}/${roupa.id}`,
+        method: "GET",
+        description: "Obter detalhes desta roupa",
+      },
+      {
+        rel: "update",
+        href: `${baseUrl}/${roupa.id}`,
+        method: "PATCH",
+        description: "Atualizar dados desta roupa",
+      },
+      {
+        rel: "delete",
+        href: `${baseUrl}/${roupa.id}`,
+        method: "DELETE",
+        description: "Excluir este roupa",
+      },
+      {
+        rel: "collection",
+        href: `${baseUrl}`,
+        method: "GET",
+        description: "Listar todos as roupas",
+      },
+    ]
+  };
+}
