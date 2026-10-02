@@ -7,8 +7,13 @@ class RoupaRepository {
   }
 
   findById(id) {
-    const sql = "SELECT * FROM roupas WHERE id=?";
+    const sql = "SELECT * FROM roupas WHERE id = ?";
     return consulta(sql, id, `Roupa com id ${id} não encontrada`);
+  }
+
+  findByIdUsuario(id) {
+    const sql = "SELECT * FROM roupas WHERE idUsuario = ?";
+    return consulta(sql, id, `Roupa com idUsuario ${id} não encontrada`);
   }
 
   findAll() {
@@ -37,6 +42,26 @@ class RoupaRepository {
       page: Number(page),
       limit: Number(limit),
       totalPages: Math.ceil(total / limit),
+    };
+  }
+
+  async findByIdUsuarioPaginated(page = 1, limit = 10, id){
+    const offset = (page - 1) * limit
+
+    const sqlData = "SELECT * FROM roupas WHERE idUsuario = ? LIMIT ? OFFSET ?"
+    const sqlCount = "SELECT COUNT(*) AS total FROM roupas WHERE idUsuario = ?"
+
+    const data = await consulta(sqlData, [id, limit, offset], `Falha em encontrar os dados das roupas do usuario ${id}`)
+    const count = await consulta(sqlCount, id, "Falha em contar as roupas")
+
+    const total = count[0].total
+
+    return{
+      data,
+      total,
+      page: Number(page),
+      limit: Number(limit),
+      totalPages: Math.ceil(total/limit)
     };
   }
 

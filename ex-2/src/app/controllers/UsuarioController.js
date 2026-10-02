@@ -1,7 +1,9 @@
 import UsuarioRepository from "../repositors/UsuarioRepository.js";
+import RoupaRepository from "../repositors/RoupaRepository.js";
 import {
   gerarLinksUsuario,
   gerarLinksPaginacao,
+  gerarLinksRoupa,
 } from "../helpers/helperHateoas.js";
 
 class UsuarioController {
@@ -24,7 +26,7 @@ class UsuarioController {
 
       res.setHeader("cache-control", "public, max-age=60, must-revalidate");
 
-      res.status(200).json({
+      return res.status(200).json({
         data: usuariosComLinks,
         meta: {
           pageCurrent: page,
@@ -76,6 +78,41 @@ class UsuarioController {
         .status(500)
         .json({ title: "Erro Interno", detail: erro.message });
     }
+  }
+
+  async showRoupasPaginated(req, res){
+    try{
+    const page = parseInt(req.query.page) || 1
+    const limit = parseInt(req.query.limit) || 10
+    const id = req.params.idUsuario
+
+    const {data, total, totalPages} = await RoupaRepository.findByIdUsuarioPaginated(page, limit, id)
+
+    const roupasComLinks = data.map((roupa) => gerarLinksRoupa(roupa))
+    const linksPaginacao = gerarLinksPaginacao(
+      `/usuarios/${id}/roupas`,
+      page,
+      limit,
+      totalPages
+    ) 
+
+    res.setHeader("cache-control", "public, max-age=60, must-revalidate");
+
+    return res.status(200).json({
+      data: roupasComLinks,
+      meta: {
+        pageCurrent: page,
+        totalRecords: total,
+        limitPerPage: limit,
+        totalPages: totalPages,
+      },
+      _links: linksPaginacao
+    })
+  }catch(erro){
+    return res
+        .status(500)
+        .json({ title: "Erro Interno", detail: erro.message });
+  }
   }
 
   async update(req, res) {

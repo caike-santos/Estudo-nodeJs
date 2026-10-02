@@ -50,7 +50,7 @@ async create(req, res) {
     const novaRoupa = { id: id, ...data };
     const roupasComLinks = gerarLinksRoupa(novaRoupa);
 
-    res.setHeader("Location", `/usuarios/${id}`);
+    res.setHeader("Location", `/roupas/${id}`);
     res.status(201).json(roupasComLinks);
   } catch (erro) {
     res.status(500).json({ title: "Erro interno", detail: erro.message });
@@ -62,7 +62,7 @@ async show(req, res) {
     const id = req.params.id;
     const row = await RoupaRepository.findById(id);
 
-    if (!row || row.length === null) {
+    if (!row || row.length === 0) {
       return res.status(404).json({
         title: "Não Encontrado",
         detail: `Roupa com id ${id} não existe.`,
@@ -98,7 +98,7 @@ async update(req, res) {
 async delete(req, res) {
     try{
         const id = req.params.id
-        const row = RoupaRepository.delete(id)
+        const row = await RoupaRepository.delete(id)
 
         res.status(204).send()
     }catch(erro){

@@ -16,5 +16,5 @@ router.post('/roupas', RoupaController.create)
 router.patch('/roupas/:id', RoupaController.update)
 router.delete('/roupas/:id', RoupaController.delete)
 
-
+router.get('/usuarios/:idUsuario/roupas', UsuarioController.showRoupasPaginated)
 export default router

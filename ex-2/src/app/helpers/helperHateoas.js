@@ -92,6 +92,12 @@ export function gerarLinksRoupa(roupa, baseUrl = "/roupas") {
         method: "GET",
         description: "Listar todos as roupas",
       },
+      {
+        rel: "usuario",
+        href: `/usuarios/${roupa.idUsuario}`,
+        method: "GET",
+        description: "Obter dados do proprietário desta peça"
+      }
     ]
   };
 }

@@ -44,6 +44,8 @@ class UsuarioRepository{
         totalPages: Math.ceil(total / limit)
     };
     }
+
+    
 }
 
 export default new UsuarioRepository()
